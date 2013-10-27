@@ -45,7 +45,7 @@ main(int argc, char *argv[])
        zero to mmap() will fail with the error EINVAL */
 
     if (sb.st_size == 0)
-        exit(EXIT_SUCCESS)
+        exit(EXIT_SUCCESS);
 
     src = mmap(NULL, sb.st_size, PROT_READ, MAP_PRIVATE, fdSrc, 0);
     if (src == MAP_FAILED)
