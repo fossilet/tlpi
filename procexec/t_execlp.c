@@ -16,6 +16,8 @@
 */
 #include "tlpi_hdr.h"
 
+/* XXX: why `./t_execlp ./t_execlp' fails? */
+
 int
 main(int argc, char *argv[])
 {
