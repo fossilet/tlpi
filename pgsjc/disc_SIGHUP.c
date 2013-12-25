@@ -28,12 +28,15 @@
 #include <signal.h>
 #include "tlpi_hdr.h"
 
+const int MAX_LEN = 50;
+
 static void             /* Handler for SIGHUP */
 handler(int sig)
 {
-    printf("PID %ld: caught signal %2d (%s)\n", (long) getpid(),
-            sig, strsignal(sig));
-                        /* UNSAFE (see Section 21.1.2) */
+    char msg[MAX_LEN];
+    snprintf(msg, MAX_LEN, "PID %ld: caught signal %2d (%s)\n", (long) getpid(),
+             sig, strsignal(sig));
+    write(STDOUT_FILENO, msg, strlen(msg));
 }
 
 int
@@ -76,7 +79,11 @@ main(int argc, char *argv[])
 
     alarm(60);      /* Ensure each process eventually terminates */
 
-    printf("PID=%ld PGID=%ld\n", (long) getpid(), (long) getpgrp());
+    char msg[MAX_LEN];
+    snprintf(msg, MAX_LEN, "PID=%ld PGID=%ld\n", (long) getpid(),
+            (long) getpgrp());
+    write(STDOUT_FILENO, msg, strlen(msg));
+
     for (;;)
         pause();        /* Wait for signals */
 }
