@@ -33,9 +33,7 @@ const int MAX_LEN = 50;
 static void             /* Handler for SIGHUP */
 handler(int sig)
 {
-    char msg[MAX_LEN];
-    snprintf(msg, MAX_LEN, "PID %ld: caught signal %2d (%s)\n", (long) getpid(),
-             sig, strsignal(sig));
+    char msg[] = "handler\n";
     write(STDOUT_FILENO, msg, strlen(msg));
 }
 
@@ -79,9 +77,7 @@ main(int argc, char *argv[])
 
     alarm(60);      /* Ensure each process eventually terminates */
 
-    char msg[MAX_LEN];
-    snprintf(msg, MAX_LEN, "PID=%ld PGID=%ld\n", (long) getpid(),
-            (long) getpgrp());
+    char msg[] = "main\n";
     write(STDOUT_FILENO, msg, strlen(msg));
 
     for (;;)
